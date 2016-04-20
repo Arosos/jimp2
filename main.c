@@ -1,27 +1,17 @@
-#include "rules.h"
+#include "data.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 
-const int BUFFSIZE = 8192;
-
 int main (int argc, char **argv)
 {
-	char con = argv[1];
-	FILE *data = fopen(argv[2], "r");
-	if (data == NULL)
-	{
-		printf(stderr, "Nie mogę czytać pliku %s", argv[2]);
+	int c = count_args(argv[1]);
+	if(c == -1)
 		return 1;
-	}
-	FILE *rule = fopen(argv[3], "r");
-	if (rule == NULL)
-        {
-                printf(stderr, "Nie mogę czytać pliku %s", argv[3]);
-                return 1;
-        }
-	printf("Wybrano wnioskowanie: %s", con);
-	rule_t *rules;
-	char buff[];
+	printf("c=%d\n", c);
+	data_t *data = load_data(argv[1], c);
+	int i;
+	for(i = 0 ; i < c; i++)
+		printf("%s %c\n", data[i].name, data[i].value);
 	return 0;
 }
