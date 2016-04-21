@@ -29,13 +29,13 @@ rule_t *load_rules(char *filename)
 		(rules->com)->ope = malloc(4);
 		(rules->res).name = malloc(10);
 		(rules->res).ope = malloc(4);
-		token = strtok(buff, " ");
+		token = strtok(buff, " \n");
 		rules[i].com[0].name = token;
-		while((token = strtok(NULL, " ")) != NULL) {
+		while((token = strtok(NULL, " \n")) != NULL) {
 			if(strcmp(token, "&&") == 0 || strcmp(token, "||") == 0 || strcmp(token, "=>") == 0) {
 				if(strcmp(token, "=>") == 0) {
 					rules[i].com[j].ope = token;
-					token = strtok(NULL, " ");
+					token = strtok(NULL, " \n");
 					rules[i].res.name = token;
 					rules[i].res.ope = NULL;
 					break;
@@ -48,6 +48,7 @@ rule_t *load_rules(char *filename)
 			rules[i].com[j].name = token;
 		}
 	}
+	fclose(in);
 	return rules;
 }
 
