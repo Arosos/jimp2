@@ -3,10 +3,11 @@
 
 #include <stdbool.h>
 
+#define MAXR 3
+
 typedef struct {
 	bool neg;
 	char *name;
-	bool var;
 	char *ope;
 } part_t;
 
@@ -15,8 +16,10 @@ typedef struct {
 	part_t res;
 } rule_t;
 
-void loadRules (rule_t *rules, char *fname);
+int count_rules(char* fname);
 
-void delFirst(char *string);
+rule_t *load_rules(char *fname);
+
+char *del_first(char *string);
 
 #endif

@@ -4,44 +4,51 @@
 #include <stdlib.h>
 #include <string.h>
 
-const int BUFFSIZE = 8192;
+const int BUFFSIZER = 8192;
 
-void loadRules(rule_t *rules, char *fname)
+int count_rules(char *filename) {
+        FILE *in = fopen(filename, "r");
+        if (in == NULL)
+                return -1;
+        int c = 0;
+        char buff[BUFFSIZER];
+        while(fgets(buff, BUFFSIZER, in) != NULL)
+                c++;
+        return c;
+}
+
+rule_t *load_rules(char *filename)
 {
-	FILE *rule = fopen(fname, "r");
-	int i, j;
-	char *buff;
-	for(i = 0 ; fgets(buff, BUFFSIZE, rule) != NULL ; i++)
-	{
-		strtok(buff, " ,.-");
-		for(j = 0 ; buff != NULL ; j++)
-		{
-			if(strcmp(buff, "&&") == 0 || strcmp(buff, "||") == 0 || strcmp(buff, "=>") == 0)
-			{
-				if(strcmp(buff, "=>") == 0)
-				{
-					strtok(buff, " ,.-");
-					if(buff[0] == '!')
-					{
-						rules[i].res.neg = true;
-						delfirst(&buff);
-						rules[i].res.name = buff;
-					}
-					else
-					{
-						rules[i].res.neg = false;
-						rules[i].res.name = buff;
-					}
+	FILE *in = fopen(filename, "r");
+	rule_t *rules = malloc(sizeof(rule_t));
+	int i, j = 0;
+	char buff[BUFFSIZER], *token;
+	for(i = 0 ; fgets(buff, BUFFSIZER, in) != NULL ; i++) {
+		rules->com = malloc(sizeof(part_t));
+		(rules->com)->name = malloc(10);
+		(rules->com)->ope = malloc(4);
+		(rules->res).name = malloc(10);
+		(rules->res).ope = malloc(4);
+		token = strtok(buff, " ");
+		rules[i].com[0].name = token;
+		while((token = strtok(NULL, " ")) != NULL) {
+			if(strcmp(token, "&&") == 0 || strcmp(token, "||") == 0 || strcmp(token, "=>") == 0) {
+				if(strcmp(token, "=>") == 0) {
+					rules[i].com[j].ope = token;
+					token = strtok(NULL, " ");
+					rules[i].res.name = token;
+					rules[i].res.ope = NULL;
+					break;
 				}
+				else
+				rules[i].com[j].ope = token;
+				j++;
 			}
-			else if(buff[0] == '!')
-			rules[i].com[j].neg = true;
-			else if(buff[0] != '!')
-			rules[i].com[j].neg = false;
 			else
-			rules[i].com[j].name = buff;
+			rules[i].com[j].name = token;
 		}
 	}
+	return rules;
 }
 
 void delFirst(char *string)
