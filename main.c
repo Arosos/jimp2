@@ -24,11 +24,16 @@ int main (int argc, char **argv)
 	rule_t *rules = load_rules(argv[2], r);
 	for(i = 0 ; i < r ; i++) {
 		j = 0;
+		printf("Reguła #%d:\n", i+1);
 		do {
 			printf("Nazwa: %s Operator: %s\n", rules[i].com[j].name, rules[i].com[j].ope);
 			j++;
 		} while(strcmp(rules[i].com[j-1].ope, "=>") != 0);
 		printf("Rezultat: %s Operator: %s\n", rules[i].res.name, rules[i].res.ope);
 	}
+	data = reload_data(data, rules, c, r);
+	int b = return_args_number();
+	for(i = 0 ; i < b ; i++)
+                printf("Nazwa: %s Wartość: %c\n", data[i].name, data[i].value);
 	return 0;
 }

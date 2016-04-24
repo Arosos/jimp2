@@ -1,6 +1,8 @@
 #ifndef DATA_H
 #define DATA_H
 
+#include "rules.h"
+
 #define MAX 2
 
 typedef struct {
@@ -11,5 +13,7 @@ typedef struct {
 int count_args(char *filename);
 
 data_t *load_data(char *filename, int n);
+
+data_t *reload_data(data_t *data, rule_t *rules, int d, int r);
 
 #endif

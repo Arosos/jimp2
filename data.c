@@ -1,11 +1,12 @@
 #include "data.h"
-#include "rules.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
 
 const int BUFFSIZE = 8192;
+
+int a;
 
 int count_args(char *filename) {
 	FILE *in = fopen(filename, "r");
@@ -33,24 +34,31 @@ data_t *load_data(char *filename, int n) {
 	return data;
 }
 
-/*data_t *reload_data(data_t *data, rule_t *rules, int d, int r) {
-	data_t *ndata = malloc(sizeof(data_t));
+data_t *reload_data(data_t *data, rule_t *rules, int d, int r) {
 	int i, j, k;
-	char *name;
-	bool b, c;
-	for(i = 0 ; i < n ; i++) {
-		name = data[i].name;
-		bool *tb[r];
-		b = false;
-		for(j = 0 ; j < r ; j++) {
-			for(k = 0 ; strcmp(rules[j].com[k].ope, "=>") != 0 ; k++) {
-				if(strcmp(name, rules[j].com[k].name) == 0)
-					tb[j][k] = true;
+	bool b = false;
+	for(j = 0 ; j < r ; j++) {
+		for(k = 0 ; strcmp(rules[j].com[k].ope, "=>") != 0 ; k++) {
+			for(i = 0 ; i < d ; i++) {
+				b = false;
+				if(strcmp(rules[j].com[k].name, data[i].name) == 0) {
+					b = false;
+					break;
+				}
 				else
-					tb[j][k] = false;
-				if(!tb[j][k])
-				b = true;
+					b = true;
+			}
+			if(b) {
+				strcpy(data[d].name, rules[j].com[k].name);
+				data[d].value = '?';
+				d++;
 			}
 		}
 	}
-}*/
+	a = d;
+	return data;
+}
+
+int return_args_number() {
+	return a;
+}
