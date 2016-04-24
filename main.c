@@ -23,6 +23,7 @@ int main (int argc, char **argv)
 	printf("Wczytano tyle reguł: %d.\n", r);
 	rule_t *rules = load_rules(argv[2], r);
 	for(i = 0 ; i < r ; i++) {
+		j = 0;
 		do {
 			printf("Nazwa: %s Operator: %s\n", rules[i].com[j].name, rules[i].com[j].ope);
 			j++;
