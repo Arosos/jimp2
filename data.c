@@ -37,14 +37,12 @@ data_t *load_data(char *filename, int n) {
 data_t *reload_data(data_t *data, rule_t *rules, int d, int r) {
 	int i, j, k;
 	bool b = false;
-	for(j = 0 ; j < r ; j++) {
+	for(j = 0 ; j < r ; j++)
 		for(k = 0 ; strcmp(rules[j].com[k-1].ope, "=>") != 0 ; k++) {
 			for(i = 0 ; i < d ; i++) {
 				b = false;
-				if(strcmp(rules[j].com[k].name, data[i].name) == 0) {
-					b = false;
+				if(strcmp(rules[j].com[k].name, data[i].name) == 0)
 					break;
-				}
 				else
 					b = true;
 			}
@@ -53,6 +51,19 @@ data_t *reload_data(data_t *data, rule_t *rules, int d, int r) {
 				data[d].value = '?';
 				d++;
 			}
+		}
+	for(j = 0 ; j < r ; j++) {
+		for(i = 0 ; i < d ; i++) {
+			b = false;
+			if(strcmp(rules[j].res.name, data[i].name) == 0)
+				break;
+			else
+				b = true;
+		}
+		if(b) {
+			strcpy(data[d].name, rules[j].res.name);
+			data[d].value = '?';
+			d++;
 		}
 	}
 	a = d;
