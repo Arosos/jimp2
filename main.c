@@ -33,6 +33,7 @@ int main (int argc, char **argv)
 	}
 	data = reload_data(data, rules, c, r);
 	int b = return_args_number();
+	printf("Po uwzględnieniu nieznanych zmiennych z reguł, argumentów jest: %d.\n", b);
 	for(i = 0 ; i < b ; i++)
                 printf("Nazwa: %s Wartość: %c\n", data[i].name, data[i].value);
 	return 0;

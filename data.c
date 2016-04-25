@@ -38,7 +38,7 @@ data_t *reload_data(data_t *data, rule_t *rules, int d, int r) {
 	int i, j, k;
 	bool b = false;
 	for(j = 0 ; j < r ; j++) {
-		for(k = 0 ; strcmp(rules[j].com[k].ope, "=>") != 0 ; k++) {
+		for(k = 0 ; strcmp(rules[j].com[k-1].ope, "=>") != 0 ; k++) {
 			for(i = 0 ; i < d ; i++) {
 				b = false;
 				if(strcmp(rules[j].com[k].name, data[i].name) == 0) {
