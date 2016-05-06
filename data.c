@@ -21,7 +21,7 @@ int count_args(char *filename) {
 
 data_t *load_data(char *filename, int n) {
 	FILE *in = fopen(filename, "r");
-	data_t *data = (data_t*)malloc(sizeof(data_t));
+	data_t *data = (data_t*)malloc(sizeof(data_t)*n);
 	if(data==NULL)
 		return NULL;
 	int i;
@@ -36,7 +36,7 @@ data_t *load_data(char *filename, int n) {
 
 data_t *reload_data(data_t *data, rule_t *rules, int d, int r) {
 	int i, j, k;
-	bool b = false;
+	bool b;
 	for(j = 0 ; j < r ; j++)
 		for(k = 0 ; strcmp(rules[j].com[k-1].ope, "=>") != 0 ; k++) {
 			for(i = 0 ; i < d ; i++) {

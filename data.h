@@ -3,7 +3,7 @@
 
 #include "rules.h"
 
-#define MAX 2
+#define MAX 10
 
 typedef struct {
 	char name[MAX];

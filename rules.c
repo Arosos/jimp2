@@ -29,9 +29,25 @@ rule_t *load_rules(char *filename, int n)
 		j = 0;
 		fgets(buff, BUFFSIZER, in);
 		char *token = strtok(buff, " \n");
-		strcpy(rules[i].com[0].name, token);
+		if(strcmp(token, "!") == 0) {
+			rules[i].com[0].neg = true;
+			token = strtok(NULL, " \n");
+			strcpy(rules[i].com[0].name, token);
+		}
+		else {
+			rules[i].com[0].neg = false;
+			strcpy(rules[i].com[0].name, token);
+		}
 		while((token = strtok(NULL, " \n")) != NULL) {
-			if(strcmp(token, "&&") == 0 || strcmp(token, "||") == 0 || strcmp(token, "=>") == 0) {
+			if(j != 0)
+				rules[i].com[j].neg = false;
+			if(strcmp(token, "&&") == 0 || strcmp(token, "||") == 0 || strcmp(token, "=>") == 0 || strcmp(token, "!") == 0) {
+				if(strcmp(token, "!") == 0) {
+					rules[i].com[j].neg = true;
+					token = strtok(NULL, " \n");
+					strcpy(rules[i].com[j].name, token);
+					token = strtok(NULL, " \n");
+				}
 				if(strcmp(token, "=>") == 0) {
 					strcpy(rules[i].com[j].ope, token);
 					token = strtok(NULL, " \n");
