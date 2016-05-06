@@ -16,4 +16,6 @@ data_t *load_data(char *filename, int n);
 
 data_t *reload_data(data_t *data, rule_t *rules, int d, int r);
 
+bool check_database(data_t*, int);
+
 #endif

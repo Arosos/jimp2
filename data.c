@@ -69,6 +69,18 @@ data_t *reload_data(data_t *data, rule_t *rules, int d, int r) {
 	a = d;
 	return data;
 }
+// Zwraca true, gdy dane w data powtarzają się
+bool check_database(data_t *data, int d) {
+	int i, j;
+	char name[10];
+	for(i = 0 ; i < d ; i++) {
+		strcpy(name, data[i].name);
+		for(j = i+1 ; j < d ; j++)
+			if(strcmp(name, data[j].name) == 0)
+				return true;
+	}
+	return false;
+}
 
 int return_args_number() {
 	return a;

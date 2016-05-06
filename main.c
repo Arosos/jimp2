@@ -34,12 +34,17 @@ int main (int argc, char **argv)
 		} while(strcmp(rules[i].com[j-1].ope, "=>") != 0);
 		printf("Rezultat: %s Operator: %s\n", rules[i].res.name, rules[i].res.ope);
 	}
-/*	data = reload_data(data, rules, c, r);
+	data = reload_data(data, rules, c, r);
 	c = return_args_number();
+	bool database = check_database(data, c);
+	if(database) {
+		printf("%s: Baza danych jest niespójna. Kończę działanie programu.\n", argv[0]);
+		return 1;
+	}
 	printf("Po uwzględnieniu nieznanych zmiennych z reguł, jest tyle argumentów: %d.\n", c);
 	for(i = 0 ; i < c ; i++)
                 printf("Nazwa: %s Wartość: %c\n", data[i].name, data[i].value);
-	int d = find_rule(data, rules, c, r);
+/*	int d = find_rule(data, rules, c, r);
 	printf("%d\n", d);
 	bool solution = solve(data, rules, s, c, r);
 	if(solution)
