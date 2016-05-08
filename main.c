@@ -44,6 +44,8 @@ int main (int argc, char **argv)
 	printf("Po uwzględnieniu nieznanych zmiennych z reguł, jest tyle argumentów: %d.\n", c);
 	for(i = 0 ; i < c ; i++)
                 printf("Nazwa: %s Wartość: %c\n", data[i].name, data[i].value);
+	bool solution = forward_chaining(data, rules, s, c, r);
+	printf("%s = %s\n", argv[3], solution ? "true" : "false");
 /*	int d = find_rule(data, rules, c, r);
 	printf("%d\n", d);
 	bool solution = solve(data, rules, s, c, r);

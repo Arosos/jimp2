@@ -10,6 +10,7 @@
 
 typedef struct {
 	bool neg;
+	char value;
 	char name[MAXN];
 	char ope[MAXO];
 } part_t;
