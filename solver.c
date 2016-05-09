@@ -88,12 +88,8 @@ bool forward_chaining(data_t *data, rule_t *rules, char *s, int d, int r) {
 					j++;
 				} while(strcmp(rule.com[j-1].ope, "=>") != 0);
 				rule.res.value = solution;
-				if(strcmp(rule.res.name, s) == 0) {
-					if(rule.res.value == '0')
-						return false;
-					else
+				if(strcmp(rule.res.name, s) == 0 && rule.res.value == '1')
 						return true;
-				}
 				for(j = 0 ; j < d ; j++) {
 					if(strcmp(rule.res.name, data[j].name) == 0) {
 						data[j].value = rule.res.value;
